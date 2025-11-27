@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, CarFront } from 'lucide-react';
 import { NAV_LINKS } from '../constants';
 import Button from './Button';
+import { useLanguage, localizeField } from '../i18n';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { lang, setLang, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,17 +62,25 @@ const Header: React.FC = () => {
                   onClick={(e) => handleNavClick(e, link.href)}
                   className={`text-sm font-medium transition-colors hover:text-brand-500 ${scrolled ? 'text-gray-700' : 'text-gray-100'}`}
                 >
-                  {link.name}
+                  {localizeField(link.name, lang)}
                 </a>
               ))}
             </nav>
-            <div className="pl-4 border-l border-gray-300/30">
+            <div className="flex items-center pl-4 border-l border-gray-300/30 space-x-3">
+              <button
+                onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
+                className={`text-sm font-medium px-3 py-2 rounded-md ${scrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10'}`}
+                aria-label="Change language"
+              >
+                {lang === 'es' ? 'English' : 'Español'}
+              </button>
+
               <Button 
                 onClick={scrollToInquiry}
                 variant={scrolled ? 'primary' : 'secondary'} 
                 className={!scrolled ? "bg-white text-brand-700 hover:bg-gray-100" : ""}
               >
-                Get Quote
+                {t('header.getQuote')}
               </Button>
             </div>
           </div>
@@ -98,13 +108,18 @@ const Header: React.FC = () => {
                 className="block px-3 py-4 text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50 rounded-md border-b border-gray-100 last:border-0"
                 onClick={(e) => handleNavClick(e, link.href)}
               >
-                {link.name}
+                {localizeField(link.name, lang)}
               </a>
             ))}
             <div className="p-4 mt-2">
-              <Button fullWidth onClick={scrollToInquiry}>
-                Request Pricing
-              </Button>
+              <div className="space-y-3">
+                <Button fullWidth onClick={() => setLang(lang === 'es' ? 'en' : 'es')}>
+                  {lang === 'es' ? 'English' : 'Español'}
+                </Button>
+                <Button fullWidth onClick={scrollToInquiry}>
+                  {t('header.requestPricing')}
+                </Button>
+              </div>
             </div>
           </div>
         </div>

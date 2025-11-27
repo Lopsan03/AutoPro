@@ -1,23 +1,25 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { SERVICES } from '../constants';
+import { useLanguage, localizeField } from '../i18n';
 
 const ServicesSection: React.FC = () => {
   const handlePricingClick = (e: React.MouseEvent) => {
     e.preventDefault();
     document.getElementById('inquiry')?.scrollIntoView({ behavior: 'smooth' });
   };
+  const { t, lang } = useLanguage();
 
   return (
     <section id="services" className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-base font-semibold text-brand-600 tracking-wide uppercase">What We Do</h2>
+          <h2 className="text-base font-semibold text-brand-600 tracking-wide uppercase">{t('servicesSection.headingSmall')}</h2>
           <p className="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
-            Comprehensive Vehicle Care
+            {t('servicesSection.headingBig')}
           </p>
           <p className="mt-4 text-xl text-gray-500">
-            From routine maintenance to complex repairs, our state-of-the-art facility handles it all.
+            {t('servicesSection.description')}
           </p>
         </div>
 
@@ -37,11 +39,11 @@ const ServicesSection: React.FC = () => {
                 </div>
                 
                 <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand-600 transition-colors">
-                  {service.title}
+                  {localizeField(service.title, lang)}
                 </h3>
                 
                 <p className="text-gray-600 leading-relaxed mb-6">
-                  {service.description}
+                  {localizeField(service.description, lang)}
                 </p>
                 
                 <a 
@@ -49,7 +51,7 @@ const ServicesSection: React.FC = () => {
                   onClick={handlePricingClick}
                   className="inline-flex items-center text-sm font-semibold text-brand-600 hover:text-brand-700"
                 >
-                  Request Pricing <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                  {t('header.requestPricing')} <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
             </div>

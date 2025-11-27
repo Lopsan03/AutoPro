@@ -1,8 +1,10 @@
 import React from 'react';
 import { Facebook, Twitter, Instagram, Phone, Mail, MapPin, CarFront } from 'lucide-react';
 import { NAV_LINKS } from '../constants';
+import { useLanguage, localizeField } from '../i18n';
 
 const Footer: React.FC = () => {
+  const { t, lang } = useLanguage();
   return (
     <footer id="contact" className="bg-slate-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
@@ -16,7 +18,7 @@ const Footer: React.FC = () => {
               </span>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Your trusted partner for professional automotive care. We combine advanced technology with expert craftsmanship to keep you on the road.
+              {t('footer.about')}
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -33,12 +35,12 @@ const Footer: React.FC = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-sm font-semibold text-white tracking-wider uppercase mb-4">Quick Links</h3>
+            <h3 className="text-sm font-semibold text-white tracking-wider uppercase mb-4">{t('footer.quickLinks')}</h3>
             <ul className="space-y-3">
               {NAV_LINKS.map(link => (
-                <li key={link.name}>
+                <li key={JSON.stringify(link.name)}>
                   <a href={link.href} className="text-base text-gray-400 hover:text-white transition-colors">
-                    {link.name}
+                    {localizeField(link.name, lang)}
                   </a>
                 </li>
               ))}
@@ -49,7 +51,7 @@ const Footer: React.FC = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-sm font-semibold text-white tracking-wider uppercase mb-4">Contact Us</h3>
+            <h3 className="text-sm font-semibold text-white tracking-wider uppercase mb-4">{t('footer.contactUs')}</h3>
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin size={20} className="mr-3 text-brand-500 flex-shrink-0" />
@@ -72,7 +74,7 @@ const Footer: React.FC = () => {
 
           {/* Business Hours */}
           <div>
-            <h3 className="text-sm font-semibold text-white tracking-wider uppercase mb-4">Hours</h3>
+            <h3 className="text-sm font-semibold text-white tracking-wider uppercase mb-4">{t('footer.hours')}</h3>
             <ul className="space-y-2 text-sm text-gray-400">
               <li className="flex justify-between">
                 <span>Mon - Fri:</span>

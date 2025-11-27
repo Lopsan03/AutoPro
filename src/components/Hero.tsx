@@ -1,6 +1,7 @@
 import React from 'react';
 import { ChevronDown, ShieldCheck, Clock, Award } from 'lucide-react';
 import Button from './Button';
+import { useLanguage } from '../i18n';
 
 const Hero: React.FC = () => {
   const scrollToId = (id: string) => {
@@ -9,6 +10,7 @@ const Hero: React.FC = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+  const { t } = useLanguage();
 
   return (
     <section
@@ -29,28 +31,27 @@ const Hero: React.FC = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
         <div className="inline-flex items-center px-4 py-2 rounded-full border border-brand-500/30 bg-brand-900/20 text-brand-300 text-sm font-medium mb-8 backdrop-blur-sm">
           <span className="flex h-2 w-2 rounded-full bg-brand-500 mr-2 animate-pulse" />
-          Now accepting new fleet customers
+          {t('hero.badge')}
         </div>
 
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight">
-          Professional Car Services <br />
+          {t('hero.title1')} <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-red-600">
-            You Can Trust
+            {t('hero.title2')}
           </span>
         </h1>
 
         <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-300 mb-10 leading-relaxed">
-          We provide reliable, high-quality automotive services tailored to your
-          vehicle’s needs. Experience transparent pricing and expert care.
+          {t('hero.description')}
         </p>
 
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-16">
-          <Button
+            <Button
             variant="primary"
             className="h-14 px-8 text-lg w-full sm:w-auto"
             onClick={() => scrollToId('services')}
           >
-            View Our Services
+            {t('hero.viewServices')}
           </Button>
 
           <Button
@@ -69,7 +70,7 @@ const Hero: React.FC = () => {
             "
             onClick={() => scrollToId('inquiry')}
           >
-            Get a Quote
+            {t('hero.getQuote')}
           </Button>
         </div>
 
@@ -78,18 +79,18 @@ const Hero: React.FC = () => {
           {[
             {
               icon: ShieldCheck,
-              title: 'Warranty Assured',
-              desc: 'All parts and labor backed by guarantee.',
+              title: t('hero.features.0.title'),
+              desc: t('hero.features.0.desc'),
             },
             {
               icon: Clock,
-              title: 'Fast Turnaround',
-              desc: 'Same-day service for most maintenance.',
+              title: t('hero.features.1.title'),
+              desc: t('hero.features.1.desc'),
             },
             {
               icon: Award,
-              title: 'Certified Experts',
-              desc: 'ASE certified mechanics working on your car.',
+              title: t('hero.features.2.title'),
+              desc: t('hero.features.2.desc'),
             },
           ].map((feature, idx) => (
             <div

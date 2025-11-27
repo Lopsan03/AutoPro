@@ -1,9 +1,14 @@
 import { LucideIcon } from 'lucide-react';
 
+export interface LocalizedString {
+  en: string;
+  es: string;
+}
+
 export interface ServiceItem {
   id: string;
-  title: string;
-  description: string;
+  title: string | LocalizedString;
+  description: string | LocalizedString;
   icon: LucideIcon;
 }
 
