@@ -11,9 +11,7 @@ export const VEHICLE_LIST: VehicleEntry[] = [
     "Make": "AM General",
     "Models": [
       "FJ8c Post Office",
-      "FJ8c Post Office",
       "Post Office DJ5 2WD",
-      "DJ Po Vehicle 2WD",
       "DJ Po Vehicle 2WD",
       "Post Office DJ8 2WD"
     ]
