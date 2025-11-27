@@ -49,6 +49,7 @@ const translations: Record<string, any> = {
       makeModel: { en: 'Vehicle Make & Model', es: 'Marca y Modelo' },
       serviceInterested: { en: 'Service Interested In', es: 'Servicio de Interés' },
       additionalNotes: { en: 'Additional Notes', es: 'Notas Adicionales' },
+      zipCode: { en: 'ZIP Code', es: 'Código Postal' },
     },
     placeholders: {
       fullName: { en: 'John Doe', es: 'Juan Pérez' },
@@ -57,12 +58,34 @@ const translations: Record<string, any> = {
       year: { en: 'e.g. 2018', es: 'p. ej. 2018' },
       makeModel: { en: 'e.g. Toyota Camry', es: 'p. ej. Toyota Camry' },
       serviceSelect: { en: 'Select a service...', es: 'Seleccione un servicio...' },
-      notes: { en: 'Describe any specific issues or noises...', es: 'Describa problemas o ruidos específicos...' }
+      notes: { en: 'Describe any specific issues or noises...', es: 'Describa problemas o ruidos específicos...' },
+      zipCode: { en: 'e.g. 90210', es: 'p. ej. 90210' },
     },
     sendAnother: { en: 'Send another request', es: 'Enviar otra solicitud' },
     requestReceivedTitle: { en: 'Request Received!', es: '¡Solicitud Recibida!' },
     requestReceivedDesc: { en: 'Thank you for your inquiry. One of our service advisors will contact you shortly with your personalized pricing.', es: 'Gracias por su consulta. Uno de nuestros asesores de servicio se comunicará con usted en breve con su presupuesto personalizado.' },
-    privacyNotice: { en: 'We respect your privacy. Your information is only used to generate your service quote.', es: 'Respetamos su privacidad. Su información solo se usa para generar su presupuesto de servicio.' }
+    privacyNotice: { en: 'We respect your privacy. Your information is only used to generate your service quote.', es: 'Respetamos su privacidad. Su información solo se usa para generar su presupuesto de servicio.' },
+    continueService: { en: 'Continue to Service Selection', es: 'Continuar a Selección de Servicios' }
+  },
+  serviceSelection: {
+    yourInformation: { en: 'Your Information', es: 'Su Información' },
+    fullName: { en: 'Full Name', es: 'Nombre Completo' },
+    email: { en: 'Email', es: 'Correo Electrónico' },
+    phone: { en: 'Phone', es: 'Teléfono' },
+    zipCode: { en: 'ZIP Code', es: 'Código Postal' },
+    vehicleYear: { en: 'Vehicle Year', es: 'Año del Vehículo' },
+    makeModel: { en: 'Make & Model', es: 'Marca y Modelo' },
+    editInformation: { en: '← Edit Information', es: '← Editar Información' },
+    selectServices: { en: 'Select Services', es: 'Seleccionar Servicios' },
+    selectedServices: { en: 'Selected Services', es: 'Servicios Seleccionados' },
+    backToEdit: { en: 'Back to Edit Info', es: 'Volver a Editar Información' },
+    submitEstimate: { en: 'Submit Estimate Request', es: 'Enviar Solicitud de Presupuesto' },
+    submitSubmitting: { en: 'Submitting...', es: 'Enviando...' },
+    service: { en: 'service', es: 'servicio' },
+    services: { en: 'services', es: 'servicios' },
+    estimateSubmitted: { en: 'Estimate Submitted!', es: '¡Presupuesto Enviado!' },
+    estimateSubmittedDesc: { en: 'Thank you for your submission. We\'ll process your request and send you a pricing estimate shortly.', es: 'Gracias por su envío. Procesaremos su solicitud y le enviaremos un presupuesto pronto.' },
+    startOver: { en: 'Start Over', es: 'Comenzar de Nuevo' }
   },
   footer: {
     about: { en: 'Your trusted partner for professional automotive care. We combine advanced technology with expert craftsmanship to keep you on the road.', es: 'Su socio de confianza para el cuidado automotriz profesional. Combinamos tecnología avanzada con artesanía experta para mantenerlo en la carretera.' },

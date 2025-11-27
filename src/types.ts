@@ -16,10 +16,29 @@ export interface InquiryFormData {
   fullName: string;
   email: string;
   phone: string;
-  makeModel: string;
+  zipCode: string;
   year: string;
+  makeModel: string;
+}
+
+export interface ServiceCategory {
+  id: string;
+  title: string | LocalizedString;
+  services: ServiceItem[];
+}
+
+export interface SelectedService {
   serviceId: string;
-  notes: string;
+  title: string;
+}
+
+export interface FormContextType {
+  formData: InquiryFormData;
+  setFormData: (data: InquiryFormData) => void;
+  selectedServices: SelectedService[];
+  setSelectedServices: (services: SelectedService[]) => void;
+  currentStep: 'inquiry' | 'services';
+  setCurrentStep: (step: 'inquiry' | 'services') => void;
 }
 
 export enum FormStatus {
