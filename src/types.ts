@@ -18,7 +18,8 @@ export interface InquiryFormData {
   phone: string;
   zipCode: string;
   year: string;
-  makeModel: string;
+  make: string;
+  model: string;
 }
 
 export interface ServiceCategory {

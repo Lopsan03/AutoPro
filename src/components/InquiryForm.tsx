@@ -1,28 +1,32 @@
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
-import { FormStatus } from '../types';
+import { FormStatus, InquiryFormData } from '../types';
 import Button from './Button';
 import { useLanguage } from '../i18n';
 import { useFormContext } from '../FormContext';
+import { MAKES, VEHICLE_DATA } from '../data/vehicles';
 
 const InquiryForm: React.FC = () => {
-  const [localFormData, setLocalFormData] = useState({
+  const [localFormData, setLocalFormData] = useState<InquiryFormData>({
     fullName: '',
     email: '',
     phone: '',
     zipCode: '',
     year: '',
-    makeModel: '',
+    make: '',
+    model: '',
   });
 
   const [status, setStatus] = useState<FormStatus>(FormStatus.IDLE);
   const { t } = useLanguage();
   const { setFormData, setCurrentStep } = useFormContext();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
     setLocalFormData(prev => ({ ...prev, [name]: value }));
   };
+
+  // vehicle data available via imports: MAKES, VEHICLE_DATA
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -127,29 +131,55 @@ const InquiryForm: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="year" className="block text-sm font-medium text-gray-700">{t('inquiry.labels.year')}</label>
-                  <input
-                    type="text"
+                  <select
                     id="year"
                     name="year"
                     required
                     value={localFormData.year}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500 py-3 px-4 bg-gray-50 border"
-                    placeholder={t('inquiry.placeholders.year')}
-                  />
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500 py-3 px-4 bg-white border"
+                  >
+                    <option value="">{t('inquiry.placeholders.year')}</option>
+                    {Array.from({ length: new Date().getFullYear() - 1980 + 1 }, (_, i) => (new Date().getFullYear() - i)).map(year => (
+                      <option key={year} value={String(year)}>{year}</option>
+                    ))}
+                  </select>
                 </div>
                 <div>
-                  <label htmlFor="makeModel" className="block text-sm font-medium text-gray-700">{t('inquiry.labels.makeModel')}</label>
-                  <input
-                    type="text"
-                    id="makeModel"
-                    name="makeModel"
+                  <label htmlFor="make" className="block text-sm font-medium text-gray-700">{t('inquiry.labels.makeModel')}</label>
+                  <select
+                    id="make"
+                    name="make"
                     required
-                    value={localFormData.makeModel}
+                    value={localFormData.make}
+                    onChange={(e) => {
+                      handleChange(e);
+                      // reset model when make changes
+                      setLocalFormData(prev => ({ ...prev, model: '' }));
+                    }}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500 py-3 px-4 bg-white border"
+                  >
+                    <option value="">{t('inquiry.placeholders.makeModel')}</option>
+                    {MAKES.map(make => (
+                      <option key={make} value={make}>{make}</option>
+                    ))}
+                  </select>
+
+                  <label htmlFor="model" className="block text-sm font-medium text-gray-700 mt-3">Model</label>
+                  <select
+                    id="model"
+                    name="model"
+                    required
+                    value={localFormData.model}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500 py-3 px-4 bg-gray-50 border"
-                    placeholder={t('inquiry.placeholders.makeModel')}
-                  />
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500 py-3 px-4 bg-white border"
+                    disabled={!localFormData.make}
+                  >
+                    <option value="">Select model...</option>
+                    {(localFormData.make && VEHICLE_DATA[localFormData.make] || []).map(m => (
+                      <option key={m} value={m}>{m}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
 

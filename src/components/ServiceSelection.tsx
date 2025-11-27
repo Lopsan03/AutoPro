@@ -100,7 +100,7 @@ const ServiceSelection: React.FC = () => {
             </div>
             <div>
               <label className="text-sm font-medium text-gray-500">{t('serviceSelection.makeModel')}</label>
-              <p className="text-lg text-gray-900 font-semibold">{formData.makeModel}</p>
+              <p className="text-lg text-gray-900 font-semibold">{`${formData.make} ${formData.model}`.trim()}</p>
             </div>
           </div>
           <button

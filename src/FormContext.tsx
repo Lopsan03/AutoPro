@@ -10,7 +10,8 @@ export const FormProvider: React.FC<React.PropsWithChildren> = ({ children }) =>
     phone: '',
     zipCode: '',
     year: '',
-    makeModel: '',
+    make: '',
+    model: '',
   });
 
   const [selectedServices, setSelectedServices] = useState<SelectedService[]>([]);
