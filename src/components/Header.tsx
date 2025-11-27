@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, CarFront } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import logoImg from '../data/Imagen_de_WhatsApp_2025-11-27_a_las_10.37.40_f36d7afe-removebg-preview.png';
 import { NAV_LINKS } from '../constants';
 import Button from './Button';
 import { useLanguage, localizeField } from '../i18n';
@@ -40,16 +41,11 @@ const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div 
-            className="flex-shrink-0 flex items-center cursor-pointer" 
+          <div
+            className="flex-shrink-0 flex items-center cursor-pointer"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            <div className={`p-2 rounded-lg ${scrolled ? 'bg-brand-600 text-white' : 'bg-white text-brand-600'}`}>
-              <CarFront size={28} />
-            </div>
-            <span className={`ml-3 text-2xl font-bold tracking-tight ${scrolled ? 'text-gray-900' : 'text-white'}`}>
-              Auto<span className="text-brand-600">Pro</span>
-            </span>
+            <img src={logoImg} alt="AutoPro" className="h-14 w-auto rounded-md" />
           </div>
 
           {/* Desktop Nav */}

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Facebook, Twitter, Instagram, Phone, Mail, MapPin, CarFront } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Phone, Mail, MapPin } from 'lucide-react';
+import logoImg from '../data/Imagen_de_WhatsApp_2025-11-27_a_las_10.37.40_f36d7afe-removebg-preview.png';
 import { NAV_LINKS } from '../constants';
 import { useLanguage, localizeField } from '../i18n';
 
@@ -12,11 +13,8 @@ const Footer: React.FC = () => {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center text-white">
-              <CarFront size={24} className="mr-2 text-brand-500" />
-              <span className="text-2xl font-bold tracking-tight">
-                Auto<span className="text-brand-500">Pro</span>
-              </span>
-            </div>
+                <img src={logoImg} alt="AutoPro" className="h-14 w-auto" />
+              </div>
             <p className="text-sm text-gray-400 leading-relaxed">
               {t('footer.about')}
             </p>
