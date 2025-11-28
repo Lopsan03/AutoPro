@@ -88,6 +88,10 @@ const translations: Record<string, any> = {
     serviceLocation: { en: 'Service Location', es: 'Ubicación del Servicio' },
     shop: { en: 'At Our Shop', es: 'En Nuestro Taller' },
     homeAddress: { en: 'At Your Address', es: 'En Tu Dirección' }
+    ,
+    date: { en: 'Date', es: 'Fecha' },
+    time: { en: 'Time', es: 'Hora' },
+    homeDateTimeRequired: { en: 'Please select a date and time for your home service.', es: 'Por favor seleccione una fecha y hora para el servicio en su domicilio.' }
   },
   footer: {
     about: { en: 'Your trusted partner for professional automotive care. We combine advanced technology with expert craftsmanship to keep you on the road.', es: 'Su socio de confianza para el cuidado automotriz profesional. Combinamos tecnología avanzada con artesanía experta para mantenerlo en la carretera.' },
