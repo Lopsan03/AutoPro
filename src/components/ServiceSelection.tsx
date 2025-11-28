@@ -31,7 +31,7 @@ const ServiceSelection: React.FC = () => {
   const addService = (serviceId: string, serviceTitle: string) => {
     const alreadyExists = selectedServices.some(s => s.serviceId === serviceId);
     if (!alreadyExists) {
-      setSelectedServices([...selectedServices, { serviceId, title: serviceTitle }]);
+      setSelectedServices([...selectedServices, { serviceId, title: serviceTitle, location: 'shop' }]);
     }
   };
 
@@ -39,13 +39,21 @@ const ServiceSelection: React.FC = () => {
     setSelectedServices(selectedServices.filter(s => s.serviceId !== serviceId));
   };
 
+  const updateServiceLocation = (serviceId: string, location: 'shop' | 'home') => {
+    setSelectedServices(
+      selectedServices.map(s =>
+        s.serviceId === serviceId ? { ...s, location } : s
+      )
+    );
+  };
+
   const handleSubmit = async () => {
     setStatus(FormStatus.SUBMITTING);
 
     try {
-      // Format selected services for email
+      // Format selected services with locations for email
       const servicesText = selectedServices
-        .map(s => s.title)
+        .map(s => `${s.title} (${s.location === 'shop' ? t('serviceSelection.shop') : t('serviceSelection.homeAddress')})`)
         .join(', ');
 
       // Send final email with form data + selected services
@@ -139,16 +147,40 @@ const ServiceSelection: React.FC = () => {
         {selectedServices.length > 0 && (
           <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8 mb-8">
             <h3 className="text-xl font-bold text-gray-900 mb-4">{t('serviceSelection.selectedServices')} ({selectedServices.length})</h3>
-            <div className="space-y-2">
+            <div className="space-y-4">
               {selectedServices.map((service) => (
-                <div key={service.serviceId} className="flex items-center justify-between bg-white p-3 rounded-lg">
-                  <span className="text-gray-900 font-medium">{service.title}</span>
-                  <button
-                    onClick={() => removeService(service.serviceId)}
-                    className="text-red-600 hover:text-red-700"
-                  >
-                    <Trash2 size={18} />
-                  </button>
+                <div key={service.serviceId} className="bg-white p-4 rounded-lg border border-blue-100">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-gray-900 font-medium">{service.title}</span>
+                    <button
+                      onClick={() => removeService(service.serviceId)}
+                      className="text-red-600 hover:text-red-700"
+                    >
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => updateServiceLocation(service.serviceId, 'shop')}
+                      className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-colors ${
+                        service.location === 'shop'
+                          ? 'bg-brand-600 text-white'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                    >
+                      {t('serviceSelection.shop')}
+                    </button>
+                    <button
+                      onClick={() => updateServiceLocation(service.serviceId, 'home')}
+                      className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-colors ${
+                        service.location === 'home'
+                          ? 'bg-brand-600 text-white'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                    >
+                      {t('serviceSelection.homeAddress')}
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>

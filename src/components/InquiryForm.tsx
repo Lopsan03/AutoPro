@@ -176,7 +176,7 @@ const InquiryForm: React.FC = () => {
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500 py-3 px-4 bg-white border"
                     disabled={!localFormData.make}
                   >
-                    <option value="">Select model...</option>
+                    <option value="">p. ej. Camry</option>
                     {(localFormData.make && VEHICLE_DATA[localFormData.make] || []).map(m => (
                       <option key={m} value={m}>{m}</option>
                     ))}

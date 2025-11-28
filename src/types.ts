@@ -31,6 +31,7 @@ export interface ServiceCategory {
 export interface SelectedService {
   serviceId: string;
   title: string;
+  location: 'shop' | 'home';
 }
 
 export interface FormContextType {

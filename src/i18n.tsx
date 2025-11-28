@@ -15,7 +15,7 @@ const translations: Record<string, any> = {
   },
   hero: {
     badge: { en: 'Now accepting new fleet customers', es: 'Aceptando nuevos clientes de flotas' },
-    title1: { en: 'Professional Car Services', es: 'Servicios Profesionales de Automóviles' },
+    title1: { en: 'Professional Car Services', es: 'Servicios Automotrices Profesionales' },
     title2: { en: 'You Can Trust', es: 'En los que Puedes Confiar' },
     description: { en: 'We provide reliable, high-quality automotive services tailored to your vehicle’s needs. Experience transparent pricing and expert care.', es: 'Ofrecemos servicios automotrices fiables y de alta calidad adaptados a las necesidades de su vehículo. Experimente precios transparentes y atención experta.' },
     viewServices: { en: 'View Our Services', es: 'Ver Nuestros Servicios' },
@@ -23,7 +23,7 @@ const translations: Record<string, any> = {
     features: [
       { title: { en: 'Warranty Assured', es: 'Garantía Asegurada' }, desc: { en: 'All parts and labor backed by guarantee.', es: 'Todas las piezas y mano de obra respaldadas por garantía.' } },
       { title: { en: 'Fast Turnaround', es: 'Entrega Rápida' }, desc: { en: 'Same-day service for most maintenance.', es: 'Servicio el mismo día para la mayoría de mantenimientos.' } },
-      { title: { en: 'Certified Experts', es: 'Expertos Certificados' }, desc: { en: 'ASE certified mechanics working on your car.', es: 'Mecánicos certificados ASE trabajando en su automóvil.' } }
+      { title: { en: 'Certified Experts', es: 'Expertos Certificados' }, desc: { en: 'Certified mechanics working on your car.', es: 'Mecánicos certificados trabajando en su automóvil.' } }
     ]
   },
   servicesSection: {
@@ -34,7 +34,7 @@ const translations: Record<string, any> = {
   inquiry: {
     title: { en: 'Get a Personalized Quote', es: 'Obtenga un Presupuesto Personalizado' },
     intro: { en: "Every vehicle is unique, and so are our service plans. Pricing depends on your specific make, model, and the services required. Fill out the form, and our team will review your needs and get back to you with an accurate estimate.", es: 'Cada vehículo es único, y también lo son nuestros planes de servicio. El precio depende de su marca, modelo y los servicios requeridos. Complete el formulario y nuestro equipo revisará sus necesidades y le proporcionará una estimación precisa.' },
-    whyTitle: { en: 'Why choose AutoPro?', es: '¿Por qué elegir AutoPro?' },
+    whyTitle: { en: 'Why choose Autotronica?', es: '¿Por qué elegir Autotronica?' },
     whyList: [
       { en: 'Transparent pricing with no hidden fees', es: 'Precios transparentes sin cargos ocultos' },
       { en: 'Digital inspections with photos sent to your phone', es: 'Inspecciones digitales con fotos enviadas a su teléfono' },
@@ -45,7 +45,7 @@ const translations: Record<string, any> = {
       email: { en: 'Email Address', es: 'Correo Electrónico' },
       phone: { en: 'Phone Number', es: 'Número de Teléfono' },
       year: { en: 'Vehicle Year', es: 'Año del Vehículo' },
-      makeModel: { en: 'Vehicle Make & Model', es: 'Marca y Modelo' },
+      makeModel: { en: 'Vehicle Make', es: 'Marca' },
       serviceInterested: { en: 'Service Interested In', es: 'Servicio de Interés' },
       additionalNotes: { en: 'Additional Notes', es: 'Notas Adicionales' },
       zipCode: { en: 'ZIP Code', es: 'Código Postal' },
@@ -55,7 +55,7 @@ const translations: Record<string, any> = {
       email: { en: 'john@example.com', es: 'juan@ejemplo.com' },
       phone: { en: '(555) 123-4567', es: '(555) 123-4567' },
       year: { en: 'e.g. 2018', es: 'p. ej. 2018' },
-      makeModel: { en: 'e.g. Toyota Camry', es: 'p. ej. Toyota Camry' },
+      makeModel: { en: 'e.g. Toyota', es: 'p. ej. Toyota' },
       serviceSelect: { en: 'Select a service...', es: 'Seleccione un servicio...' },
       notes: { en: 'Describe any specific issues or noises...', es: 'Describa problemas o ruidos específicos...' },
       zipCode: { en: 'e.g. 90210', es: 'p. ej. 90210' },
@@ -73,7 +73,7 @@ const translations: Record<string, any> = {
     phone: { en: 'Phone', es: 'Teléfono' },
     zipCode: { en: 'ZIP Code', es: 'Código Postal' },
     vehicleYear: { en: 'Vehicle Year', es: 'Año del Vehículo' },
-    makeModel: { en: 'Make & Model', es: 'Marca y Modelo' },
+    makeModel: { en: 'Make', es: 'Marca' },
     editInformation: { en: '← Edit Information', es: '← Editar Información' },
     selectServices: { en: 'Select Services', es: 'Seleccionar Servicios' },
     selectedServices: { en: 'Selected Services', es: 'Servicios Seleccionados' },
@@ -84,7 +84,10 @@ const translations: Record<string, any> = {
     services: { en: 'services', es: 'servicios' },
     estimateSubmitted: { en: 'Estimate Submitted!', es: '¡Presupuesto Enviado!' },
     estimateSubmittedDesc: { en: 'Thank you for your submission. We\'ll process your request and send you a pricing estimate shortly.', es: 'Gracias por su envío. Procesaremos su solicitud y le enviaremos un presupuesto pronto.' },
-    startOver: { en: 'Start Over', es: 'Comenzar de Nuevo' }
+    startOver: { en: 'Start Over', es: 'Comenzar de Nuevo' },
+    serviceLocation: { en: 'Service Location', es: 'Ubicación del Servicio' },
+    shop: { en: 'At Our Shop', es: 'En Nuestro Taller' },
+    homeAddress: { en: 'At Your Address', es: 'En Tu Dirección' }
   },
   footer: {
     about: { en: 'Your trusted partner for professional automotive care. We combine advanced technology with expert craftsmanship to keep you on the road.', es: 'Su socio de confianza para el cuidado automotriz profesional. Combinamos tecnología avanzada con artesanía experta para mantenerlo en la carretera.' },
