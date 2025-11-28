@@ -36,7 +36,7 @@ const Hero: React.FC = () => {
 
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight">
           {t('hero.title1')} <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-red-600">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-blue-400">
             {t('hero.title2')}
           </span>
         </h1>
