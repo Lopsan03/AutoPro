@@ -32,12 +32,13 @@ const InquiryForm: React.FC = () => {
     e.preventDefault();
     setStatus(FormStatus.SUBMITTING);
 
-    // Simulate API call
+    // Just save form data and move to services step
+    // Email will be sent only when user submits services selection
     setTimeout(() => {
       setFormData(localFormData);
       setCurrentStep('services');
       setStatus(FormStatus.IDLE);
-    }, 1500);
+    }, 500);
   };
 
   return (

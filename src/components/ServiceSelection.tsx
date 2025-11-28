@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronDown, Check, Trash2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 import { SERVICES } from '../constants';
 import { FormStatus, SelectedService } from '../types';
 import Button from './Button';
@@ -11,6 +12,11 @@ const ServiceSelection: React.FC = () => {
   const { lang, t } = useLanguage();
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
   const [status, setStatus] = useState<FormStatus>(FormStatus.IDLE);
+
+  // Initialize EmailJS on component mount
+  useEffect(() => {
+    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+  }, []);
 
   const toggleCategory = (categoryId: string) => {
     const newExpanded = new Set(expandedCategories);
@@ -33,23 +39,41 @@ const ServiceSelection: React.FC = () => {
     setSelectedServices(selectedServices.filter(s => s.serviceId !== serviceId));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setStatus(FormStatus.SUBMITTING);
 
-    // Simulate API call
-    setTimeout(() => {
-      const payload = {
-        ...formData,
-        selectedServices: selectedServices,
-      };
-      console.log('Submitting to backend:', payload);
-      // In a real app, this would call your backend API
+    try {
+      // Format selected services for email
+      const servicesText = selectedServices
+        .map(s => s.title)
+        .join(', ');
+
+      // Send final email with form data + selected services
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.fullName,
+          from_email: formData.email,
+          phone: formData.phone,
+          zip_code: formData.zipCode,
+          year: formData.year,
+          make: formData.make,
+          model: formData.model,
+          services: servicesText || 'No services selected',
+        }
+      );
+
       setStatus(FormStatus.SUCCESS);
       setTimeout(() => {
         setCurrentStep('inquiry');
         setStatus(FormStatus.IDLE);
       }, 3000);
-    }, 1500);
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      setStatus(FormStatus.IDLE);
+      alert('Failed to submit services. Please try again.');
+    }
   };
 
   if (status === FormStatus.SUCCESS) {
