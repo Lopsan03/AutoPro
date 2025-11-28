@@ -57,7 +57,7 @@ const InquiryForm: React.FC = () => {
             <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100">
               <h4 className="font-semibold text-gray-900 mb-4">{t('inquiry.whyTitle')}</h4>
               <ul className="space-y-4">
-                {[0,1,2,3].map((idx) => (
+                {[0,1,2].map((idx) => (
                   <li key={idx} className="flex items-center text-gray-700">
                     <CheckCircle size={20} className="text-green-500 mr-3" />
                     {t(`inquiry.whyList.${idx}`)}

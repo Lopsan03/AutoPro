@@ -39,7 +39,6 @@ const translations: Record<string, any> = {
       { en: 'Transparent pricing with no hidden fees', es: 'Precios transparentes sin cargos ocultos' },
       { en: 'Digital inspections with photos sent to your phone', es: 'Inspecciones digitales con fotos enviadas a su teléfono' },
       { en: '12-month / 12,000-mile warranty on all repairs', es: 'Garantía de 12 meses / 12,000 millas en todas las reparaciones' },
-      { en: 'Comfortable waiting area with free Wi-Fi', es: 'Área de espera cómoda con Wi-Fi gratuito' }
     ],
     labels: {
       fullName: { en: 'Full Name', es: 'Nombre Completo' },
