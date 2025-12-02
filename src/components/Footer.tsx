@@ -13,8 +13,8 @@ const Footer: React.FC = () => {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center text-white">
-                <img src={logoImg} alt="AutoPro" className="h-14 w-auto" />
-              </div>
+              <img src={logoImg} alt="AutoPro" className="h-14 w-auto" />
+            </div>
             <p className="text-sm text-gray-400 leading-relaxed">
               {t('footer.about')}
             </p>
@@ -54,18 +54,16 @@ const Footer: React.FC = () => {
               <li className="flex items-start">
                 <MapPin size={20} className="mr-3 text-brand-500 flex-shrink-0" />
                 <span className="text-sm">
-                  1234 Motorway Blvd<br />
-                  Suite 100<br />
-                  Automotive City, AC 90210
+                  {t('footer.address')}
                 </span>
               </li>
               <li className="flex items-center">
                 <Phone size={20} className="mr-3 text-brand-500 flex-shrink-0" />
-                <span className="text-sm">(555) 123-4567</span>
+                <span className="text-sm">{t('footer.phone')}</span>
               </li>
               <li className="flex items-center">
                 <Mail size={20} className="mr-3 text-brand-500 flex-shrink-0" />
-                <span className="text-sm">service@autopro.com</span>
+                <span className="text-sm">{t('footer.emailAddress')}</span>
               </li>
             </ul>
           </div>
@@ -74,18 +72,9 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-sm font-semibold text-white tracking-wider uppercase mb-4">{t('footer.hours')}</h3>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li className="flex justify-between">
-                <span>Mon - Fri:</span>
-                <span className="text-white">7:00 AM - 6:00 PM</span>
-              </li>
-              <li className="flex justify-between">
-                <span>Saturday:</span>
-                <span className="text-white">8:00 AM - 4:00 PM</span>
-              </li>
-              <li className="flex justify-between">
-                <span>Sunday:</span>
-                <span className="text-brand-500">Closed</span>
-              </li>
+              <li>{t('footer.scheduleLine1')}</li>
+              <li>{t('footer.scheduleLine2')}</li>
+              <li>{t('footer.scheduleLine3')}</li>
             </ul>
           </div>
         </div>

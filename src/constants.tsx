@@ -4,8 +4,7 @@ import {
   Activity, 
   Disc, 
   Zap, 
-  ThermometerSnowflake,
-  Car
+  ThermometerSnowflake
 } from 'lucide-react';
 import { ServiceItem } from './types';
 
@@ -27,12 +26,6 @@ export const SERVICES: ServiceItem[] = [
     title: { en: 'Engine Diagnostics', es: 'Diagnóstico del Motor' },
     description: { en: 'Advanced computer diagnostics to identify and resolve check engine lights and performance issues accurately.', es: 'Diagnósticos informáticos avanzados para identificar y resolver la luz de verificación del motor y problemas de rendimiento con precisión.' },
     icon: Activity
-  },
-  {
-    id: 'tires',
-    title: { en: 'Tire Services', es: 'Servicios de Neumáticos' },
-    description: { en: 'Professional tire installation, rotation, balancing, and alignment to extend tire life and improve handling.', es: 'Instalación profesional de neumáticos, rotación, equilibrado y alineación para extender la vida útil y mejorar el manejo.' },
-    icon: Car
   },
   {
     id: 'battery',
