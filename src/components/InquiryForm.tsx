@@ -166,7 +166,7 @@ const InquiryForm: React.FC = () => {
                     ))}
                   </select>
 
-                  <label htmlFor="model" className="block text-sm font-medium text-gray-700 mt-3">Model</label>
+                  <label htmlFor="model" className="block text-sm font-medium text-gray-700 mt-3">{t('serviceSelection.model')}</label>
                   <select
                     id="model"
                     name="model"

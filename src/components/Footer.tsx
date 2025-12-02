@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, Twitter, Instagram, Phone, Mail, MapPin } from 'lucide-react';
+import { Facebook, Instagram, Phone, Mail, MapPin } from 'lucide-react';
 import logoImg from '../data/Imagen_de_WhatsApp_2025-11-27_a_las_10.37.40_f36d7afe-removebg-preview.png';
 import { NAV_LINKS } from '../constants';
 import { useLanguage, localizeField } from '../i18n';
@@ -13,20 +13,17 @@ const Footer: React.FC = () => {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center text-white">
-              <img src={logoImg} alt="AutoPro" className="h-14 w-auto" />
+              <img src={logoImg} alt="AutoTronica" className="h-14 w-auto" />
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
               {t('footer.about')}
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://www.facebook.com/autotronica.mex" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 <Facebook size={20} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://www.instagram.com/autotronica.mex/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 <Instagram size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Twitter size={20} />
               </a>
             </div>
           </div>
@@ -42,8 +39,6 @@ const Footer: React.FC = () => {
                   </a>
                 </li>
               ))}
-              <li><a href="#" className="text-base text-gray-400 hover:text-white transition-colors">Careers</a></li>
-              <li><a href="#" className="text-base text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
             </ul>
           </div>
 
@@ -80,7 +75,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-800 text-center text-sm text-gray-500">
-          <p>&copy; {new Date().getFullYear()} AutoPro Services. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} AutoTronica. All rights reserved.</p>
         </div>
       </div>
     </footer>

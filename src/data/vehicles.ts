@@ -48263,6 +48263,8 @@ export const VEHICLE_DATA: Record<string, string[]> = VEHICLE_LIST.reduce((acc, 
       uniq.push(m);
     }
   }
+  // Sort models alphabetically
+  uniq.sort((a, b) => a.localeCompare(b));
   acc[make] = uniq;
   return acc;
 }, {} as Record<string, string[]>);

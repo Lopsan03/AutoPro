@@ -12,6 +12,9 @@ const ServiceSelection: React.FC = () => {
   const { lang, t } = useLanguage();
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
   const [status, setStatus] = useState<FormStatus>(FormStatus.IDLE);
+  const [selectedLocation, setSelectedLocation] = useState<'shop' | 'home' | null>(null);
+  const [serviceDate, setServiceDate] = useState<string>('');
+  const [serviceTime, setServiceTime] = useState<string>('');
 
   // Initialize EmailJS on component mount
   useEffect(() => {
@@ -33,7 +36,7 @@ const ServiceSelection: React.FC = () => {
     if (!alreadyExists) {
       setSelectedServices([
         ...selectedServices,
-        { serviceId, title: serviceTitle, location: 'shop', date: '', time: '' }
+        { serviceId, title: serviceTitle, location: selectedLocation || 'shop', date: serviceDate, time: serviceTime }
       ]);
     }
   };
@@ -42,45 +45,28 @@ const ServiceSelection: React.FC = () => {
     setSelectedServices(selectedServices.filter(s => s.serviceId !== serviceId));
   };
 
-  const updateServiceLocation = (serviceId: string, location: 'shop' | 'home') => {
-    setSelectedServices(
-      selectedServices.map(s =>
-        s.serviceId === serviceId
-          ? {
-              ...s,
-              location,
-              // Reset date/time if switching to shop
-              ...(location === 'shop' ? { date: '', time: '' } : {})
-            }
-          : s
-      )
-    );
-  };
-
-  const updateServiceDateTime = (serviceId: string, field: 'date' | 'time', value: string) => {
-    setSelectedServices(
-      selectedServices.map(s =>
-        s.serviceId === serviceId ? { ...s, [field]: value } : s
-      )
-    );
+  const handleLocationSelect = (location: 'shop' | 'home') => {
+    setSelectedLocation(location);
+    // Clear any previously selected services when changing location
+    setSelectedServices([]);
+    setServiceDate('');
+    setServiceTime('');
   };
 
   const handleSubmit = async () => {
-    // Validate: if any service is 'home', require date and time
-    for (const s of selectedServices) {
-      if (s.location === 'home' && (!s.date || !s.time)) {
-        alert(t('serviceSelection.homeDateTimeRequired'));
-        return;
-      }
+    // Validate: if location is 'home', require date and time
+    if (selectedLocation === 'home' && (!serviceDate || !serviceTime)) {
+      alert(t('serviceSelection.homeDateTimeRequired'));
+      return;
     }
     setStatus(FormStatus.SUBMITTING);
 
     try {
-      // Format selected services with locations and date/time for email
+      // Format selected services with location and date/time for email
       const servicesText = selectedServices
         .map(s => {
-          if (s.location === 'home') {
-            return `${s.title} (${t('serviceSelection.homeAddress')}, ${t('serviceSelection.date')}: ${s.date}, ${t('serviceSelection.time')}: ${s.time})`;
+          if (selectedLocation === 'home') {
+            return `${s.title} (${t('serviceSelection.homeAddress')}, ${t('serviceSelection.date')}: ${serviceDate}, ${t('serviceSelection.time')}: ${serviceTime})`;
           }
           return `${s.title} (${t('serviceSelection.shop')})`;
         })
@@ -173,66 +159,111 @@ const ServiceSelection: React.FC = () => {
           </button>
         </div>
 
-        {/* Selected Services */}
-        {selectedServices.length > 0 && (
-          <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8 mb-8">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">{t('serviceSelection.selectedServices')} ({selectedServices.length})</h3>
+        {/* Step 1: Location Selection */}
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-8">
+          <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('serviceSelection.chooseLocation')}</h3>
+          <p className="text-gray-600 mb-6">{t('serviceSelection.serviceLocation')}</p>
+          <div className="flex flex-col md:flex-row gap-4">
+            <button
+              onClick={() => handleLocationSelect('shop')}
+              className={`flex-1 py-4 px-6 rounded-lg border-2 transition-colors text-center ${
+                selectedLocation === 'shop'
+                  ? 'border-brand-600 bg-brand-50 text-brand-900'
+                  : 'border-gray-200 hover:border-brand-600 hover:bg-brand-50 text-gray-900'
+              }`}
+            >
+              <p className="font-semibold">{t('serviceSelection.shop')}</p>
+              <p className="text-sm text-gray-600 mt-2">Services at our facility</p>
+            </button>
+            <button
+              onClick={() => handleLocationSelect('home')}
+              className={`flex-1 py-4 px-6 rounded-lg border-2 transition-colors text-center ${
+                selectedLocation === 'home'
+                  ? 'border-brand-600 bg-brand-50 text-brand-900'
+                  : 'border-gray-200 hover:border-brand-600 hover:bg-brand-50 text-gray-900'
+              }`}
+            >
+              <p className="font-semibold">{t('serviceSelection.homeAddress')}</p>
+              <p className="text-sm text-gray-600 mt-2">Services at your location</p>
+            </button>
+          </div>
+        </div>
+
+        {/* Step 2: Date/Time Selection (only if home location selected) */}
+        {selectedLocation === 'home' && (
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-8">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">{lang === 'en' ? 'When do you need service?' : '¿Cuándo necesitas el servicio?'}</h3>
+            <div className="flex flex-col md:flex-row gap-6">
+              <div className="flex-1">
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('serviceSelection.date')}</label>
+                <input
+                  type="date"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  value={serviceDate}
+                  onChange={(e) => setServiceDate(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="flex-1">
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('serviceSelection.time')}</label>
+                <input
+                  type="time"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  value={serviceTime}
+                  onChange={(e) => setServiceTime(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Step 3: Service Selection */}
+        {selectedLocation && (
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-8">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">{t('serviceSelection.selectServices')}</h3>
             <div className="space-y-4">
-              {selectedServices.map((service) => (
-                <div key={service.serviceId} className="bg-white p-4 rounded-lg border border-blue-100">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-gray-900 font-medium">{service.title}</span>
-                    <button
-                      onClick={() => removeService(service.serviceId)}
-                      className="text-red-600 hover:text-red-700"
-                    >
-                      <Trash2 size={18} />
-                    </button>
-                  </div>
-                  <div className="flex gap-2 mb-2">
-                    <button
-                      onClick={() => updateServiceLocation(service.serviceId, 'shop')}
-                      className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-colors ${
-                        service.location === 'shop'
-                          ? 'bg-brand-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                      }`}
-                    >
-                      {t('serviceSelection.shop')}
-                    </button>
-                    <button
-                      onClick={() => updateServiceLocation(service.serviceId, 'home')}
-                      className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-colors ${
-                        service.location === 'home'
-                          ? 'bg-brand-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                      }`}
-                    >
-                      {t('serviceSelection.homeAddress')}
-                    </button>
-                  </div>
-                  {service.location === 'home' && (
-                    <div className="flex flex-col md:flex-row gap-4 mt-2">
-                      <div className="flex-1">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">{t('serviceSelection.date')}</label>
-                        <input
-                          type="date"
-                          className="w-full border border-gray-300 rounded-md px-3 py-2"
-                          value={service.date || ''}
-                          onChange={e => updateServiceDateTime(service.serviceId, 'date', e.target.value)}
-                          required
-                        />
+              {SERVICES.map((service) => (
+                <div key={service.id} className="border border-gray-200 rounded-lg overflow-hidden">
+                  <button
+                    onClick={() => toggleCategory(service.id)}
+                    className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="flex items-center flex-1">
+                      <service.icon size={24} className="text-brand-600 mr-4" />
+                      <div className="text-left">
+                        <h4 className="font-semibold text-gray-900">
+                          {localizeField(service.title, lang)}
+                        </h4>
+                        <p className="text-sm text-gray-600 mt-1">
+                          {localizeField(service.description, lang)}
+                        </p>
                       </div>
-                      <div className="flex-1">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">{t('serviceSelection.time')}</label>
-                        <input
-                          type="time"
-                          className="w-full border border-gray-300 rounded-md px-3 py-2"
-                          value={service.time || ''}
-                          onChange={e => updateServiceDateTime(service.serviceId, 'time', e.target.value)}
-                          required
-                        />
-                      </div>
+                    </div>
+                    <ChevronDown
+                      size={20}
+                      className={`text-gray-400 transition-transform ${
+                        expandedCategories.has(service.id) ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+
+                  {expandedCategories.has(service.id) && (
+                    <div className="border-t border-gray-200 bg-gray-50 p-4">
+                      <button
+                        onClick={() => addService(service.id, localizeField(service.title, lang))}
+                        disabled={selectedServices.some(s => s.serviceId === service.id)}
+                        className="w-full flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      >
+                        <span className="font-medium text-gray-900">
+                          {localizeField(service.title, lang)}
+                        </span>
+                        {selectedServices.some(s => s.serviceId === service.id) ? (
+                          <Check size={20} className="text-green-600" />
+                        ) : (
+                          <span className="text-brand-600 font-semibold">+ {t('inquiry.add')}</span>
+                        )}
+                      </button>
                     </div>
                   )}
                 </div>
@@ -241,57 +272,25 @@ const ServiceSelection: React.FC = () => {
           </div>
         )}
 
-        {/* Service Categories */}
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">{t('serviceSelection.selectServices')}</h3>
-          <div className="space-y-4">
-            {SERVICES.map((service) => (
-              <div key={service.id} className="border border-gray-200 rounded-lg overflow-hidden">
-                <button
-                  onClick={() => toggleCategory(service.id)}
-                  className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors"
-                >
-                  <div className="flex items-center flex-1">
-                    <service.icon size={24} className="text-brand-600 mr-4" />
-                    <div className="text-left">
-                      <h4 className="font-semibold text-gray-900">
-                        {localizeField(service.title, lang)}
-                      </h4>
-                      <p className="text-sm text-gray-600 mt-1">
-                        {localizeField(service.description, lang)}
-                      </p>
-                    </div>
-                  </div>
-                  <ChevronDown
-                    size={20}
-                    className={`text-gray-400 transition-transform ${
-                      expandedCategories.has(service.id) ? 'rotate-180' : ''
-                    }`}
-                  />
-                </button>
-
-                {expandedCategories.has(service.id) && (
-                  <div className="border-t border-gray-200 bg-gray-50 p-4">
-                    <button
-                      onClick={() => addService(service.id, localizeField(service.title, lang))}
-                      disabled={selectedServices.some(s => s.serviceId === service.id)}
-                      className="w-full flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                    >
-                      <span className="font-medium text-gray-900">
-                        {localizeField(service.title, lang)}
-                      </span>
-                      {selectedServices.some(s => s.serviceId === service.id) ? (
-                        <Check size={20} className="text-green-600" />
-                      ) : (
-                        <span className="text-brand-600 font-semibold">+ Add</span>
-                      )}
-                    </button>
-                  </div>
-                )}
-              </div>
-            ))}
+        {/* Selected Services Summary */}
+        {selectedServices.length > 0 && (
+          <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8 mb-8">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">{t('serviceSelection.selectedServices')} ({selectedServices.length})</h3>
+            <div className="space-y-2">
+              {selectedServices.map((service) => (
+                <div key={service.serviceId} className="flex items-center justify-between bg-white p-3 rounded-lg border border-blue-100">
+                  <span className="text-gray-900 font-medium">{service.title}</span>
+                  <button
+                    onClick={() => removeService(service.serviceId)}
+                    className="text-red-600 hover:text-red-700"
+                  >
+                    <Trash2 size={18} />
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Action Buttons */}
         <div className="flex gap-4">
