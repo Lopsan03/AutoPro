@@ -40,7 +40,7 @@ const translations: Record<string, any> = {
 		whyList: [
 			{ en: 'Transparent pricing with no hidden fees', es: 'Precios transparentes sin cargos ocultos' },
 			{ en: 'Digital inspections with photos sent to your phone', es: 'Inspecciones digitales con fotos enviadas a su teléfono' },
-			{ en: '12-month / 12,000-mile warranty on all repairs', es: 'Garantía de 12 meses / 12,000 millas en todas las reparaciones' }
+			{ en: 'Warranty on all repairs', es: 'Garantía en todas las reparaciones' }
 		],
 		labels: {
 			fullName: { en: 'Full Name', es: 'Nombre Completo' },
