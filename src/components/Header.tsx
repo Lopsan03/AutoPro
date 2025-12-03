@@ -43,15 +43,15 @@ const Header: React.FC = () => {
           <div className="hidden md:flex items-center space-x-8">
             <nav className="flex space-x-6">
               {NAV_LINKS.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className="text-sm font-medium transition-colors text-gray-700 hover:text-brand-500"
-                >
-                  {localizeField(link.name, lang)}
-                </a>
-              ))}
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="text-sm font-medium transition-colors text-gray-700 hover:text-brand-500"
+                  >
+                    {localizeField(link.name, lang)}
+                  </a>
+                ))}
             </nav>
             <div className="flex items-center pl-4 border-l border-gray-300/30 space-x-3">
               <button
@@ -89,7 +89,7 @@ const Header: React.FC = () => {
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {NAV_LINKS.map((link) => (
               <a
-                key={link.name}
+                key={link.href}
                 href={link.href}
                 className="block px-3 py-4 text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50 rounded-md border-b border-gray-100 last:border-0"
                 onClick={(e) => handleNavClick(e, link.href)}

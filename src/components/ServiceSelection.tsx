@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Check, Trash2 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
